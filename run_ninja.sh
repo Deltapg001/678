@@ -11,7 +11,7 @@ while kill -0 $NINJA_PID 2>/dev/null; do  # Check if ninja.py is still running
     echo "[$(date +'%T')] ninja.py is still running... 🔥" >> alive.log  # Log to File
     echo "Bot is Running... 🔥"  # Console Print
     sync  # Force Disk Sync to Bypass 7200s Timeout
-    sleep 120  # Every 120 Seconds
+    sleep 175  # Every 175 Seconds
 done
 
 # Log if Bot is Stopped
