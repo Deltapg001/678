@@ -263,13 +263,20 @@ def show_recent_logs(message):
         response = "free ka maal nahi milta bhai buy karlo:- @JackHubxOwner 🙇❄."
         bot.reply_to(message, response)
 
-# Avoid Scrutinizer Idle Timeout
-def avoid_idle_timeout():
+# New function to periodically send the "Bot is active" message every 5 minutes
+def send_periodic_message():
     while True:
-        print("Bot is Running...")
-        time.sleep(120)  # 2 mins to bypass 180s timeout
+        for user_id in allowed_user_ids:
+            try:
+                bot.send_message(user_id, '''Heya Qtie🤍
+kese ho bhai? game nhi kheloge kya?
+REGARDS - @JackHubxOwner''')
+            except Exception as e:
+                print(f"Failed to send message to {user_id}: {e}")
+        time.sleep(5000)  # Wait 60 minutes before sending the message again
 
-threading.Thread(target=avoid_idle_timeout, daemon=True).start()
+# Start the periodic message in a separate thread
+threading.Thread(target=send_periodic_message).start()
 
 # Function to handle the reply when free users run the /bgmi command
 def start_attack_reply(message, target, port, time):
@@ -288,14 +295,7 @@ COOLDOWN_TIME = 0
 def start_attack(user_id, target, port, time):
     with attack_lock:
         if len(active_attacks.get(user_id, [])) >= 5:
-            return False, "You have reached the# Avoid Scrutinizer Idle Timeout
-def avoid_idle_timeout():
-    while True:
-        print("Bot is Running...")
-        time.sleep(120)  # 2 mins to bypass 180s timeout
-
-threading.Thread(target=avoid_idle_timeout, daemon=True).start()
- maximum number of simultaneous attacks (5)."
+            return False, "You have reached the maximum number of simultaneous attacks (5)."
 
         active_attacks.setdefault(user_id, []).append(target)
 
