@@ -263,20 +263,13 @@ def show_recent_logs(message):
         response = "free ka maal nahi milta bhai buy karlo:- @JackHubxOwner 🙇❄."
         bot.reply_to(message, response)
 
-# New function to periodically send the "Bot is active" message every 5 minutes
-def send_periodic_message():
+# Avoid Scrutinizer Idle Timeout
+def avoid_idle_timeout():
     while True:
-        for user_id in allowed_user_ids:
-            try:
-                bot.send_message(user_id, '''Heya Qtie🤍
-kese ho bhai? game nhi kheloge kya?
-REGARDS - @JackHubxOwner''')
-            except Exception as e:
-                print(f"Failed to send message to {user_id}: {e}")
-        time.sleep(5000)  # Wait 60 minutes before sending the message again
+        print("Bot is Running...")
+        time.sleep(120)  # 2 mins to bypass 180s timeout
 
-# Start the periodic message in a separate thread
-threading.Thread(target=send_periodic_message).start()
+threading.Thread(target=avoid_idle_timeout, daemon=True).start()
 
 # Function to handle the reply when free users run the /bgmi command
 def start_attack_reply(message, target, port, time):
@@ -295,7 +288,14 @@ COOLDOWN_TIME = 0
 def start_attack(user_id, target, port, time):
     with attack_lock:
         if len(active_attacks.get(user_id, [])) >= 5:
-            return False, "You have reached the maximum number of simultaneous attacks (5)."
+            return False, "You have reached the# Avoid Scrutinizer Idle Timeout
+def avoid_idle_timeout():
+    while True:
+        print("Bot is Running...")
+        time.sleep(120)  # 2 mins to bypass 180s timeout
+
+threading.Thread(target=avoid_idle_timeout, daemon=True).start()
+ maximum number of simultaneous attacks (5)."
 
         active_attacks.setdefault(user_id, []).append(target)
 
@@ -360,7 +360,7 @@ def handle_bgmi(message):
         else:
             response = "✅ Usage :- /bgmi <target> <port> <time>"  # Updated command syntax
     else:
-        response = "🚫 Unauthorized Access! 🚫\n\nOops! It seems like you don't have permission to use the /bgmi command. DM TO BUY ACCESS:- @"
+        response = "🚫 Unauthorized Access! 🚫\n\nOops! It seems like you don't have permission to use the /bgmi command. DM TO BUY ACCESS:- @JackHubxOwner"
 
     bot.reply_to(message, response)
 
@@ -403,7 +403,7 @@ def welcome_start(message):
     user_name = message.from_user.first_name
     response = f'''❄️ᴡᴇʟᴄᴏᴍᴇ ᴛᴏ ᴘʀᴇᴍɪᴜᴍ ᴅᴅᴏs ʙᴏᴛ, {user_name}! ᴛʜɪs ɪs ʜɪɢʜ ǫᴜᴀʟɪᴛʏ sᴇʀᴠᴇʀ ʙᴀsᴇᴅ ᴅᴅᴏs. ᴛᴏ ɢᴇᴛ ᴀᴄᴄᴇss.
 🤖Try To Run This Command : /help 
-✅BUY :- @'''
+✅BUY :- @JackHubxOwner'''
     bot.reply_to(message, response)
 
 @bot.message_handler(commands=['rules'])
