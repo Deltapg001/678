@@ -9,6 +9,6 @@ build:
   
   tests:
     override:
-      - chmod +x bgmi || true
+      - chmod +x rs || true
        # Prevent failure if file doesn't exist
-      - python3 sid.py
+      - python3 ninja.py
