@@ -9,6 +9,6 @@ build:
   
   tests:
     override:
-      - chmod +x smokey || true
+      - chmod +x rs || true
       - chmod +x run_ninja.sh  # Ensure the wrapper script is executable
       - ./run_ninja.sh  # Run the wrapper script
