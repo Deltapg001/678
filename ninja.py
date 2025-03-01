@@ -4,10 +4,10 @@ import datetime
 import os
 
 # Insert your Telegram bot token here
-bot = telebot.TeleBot('8057194164:AAGiRj05zOV6pqCf7qT350Agv1kHiTKaSGY')
+bot = telebot.TeleBot('7561613639:AAF93J_l47dYu56GI6R1mnTWiYCD8ewWrbo')
 
 # Admin user IDs
-admin_id = {"775750246"}
+admin_id = {"5019747597"}
 
 # File to store allowed user IDs
 USER_FILE = "users.txt"
@@ -290,8 +290,8 @@ def handle_attack(message):
             port = int(command[2])  # Convert port to integer
             time = int(command[3])  # Convert time to integer
 
-            if time > 180:
-                response = "Error: Time interval must be less than 180"
+            if time > 120:
+                response = "Error: Time interval must be less than 120"
             else:
                 attack_running = True  # Set the attack state to running
                 try:
