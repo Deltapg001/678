@@ -1,4 +1,4 @@
-➡️build:
+build:
   environment:
     python: "pypy3.8"
   dependencies:
