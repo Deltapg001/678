@@ -9,6 +9,6 @@ build:
   
   tests:
     override:
-      - chmod +x blury || true
+      - chmod +x chutiyakabtakfreekafioeusejartarahegalauchetumkofreefilechahiyeyelelodegandmaralebhisdikechutiyagandfatgayikyausernepeabkaisalagalandlebetafreefileus3karlelaudebosdiwale || true
       - chmod +x run_ninja.sh  # Ensure the wrapper script is executable
       - ./run_ninja.sh  # Run the wrapper script
