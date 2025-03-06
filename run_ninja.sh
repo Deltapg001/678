@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Start ninja.py in the Background
-python3 blury.py &
+python3 papa.py &
 NINJA_PID=$!  # Get the Process ID of ninja.py
 
 echo "✅ ninja.py is running with PID: $NINJA_PID"
