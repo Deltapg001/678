@@ -1,14 +1,16 @@
-build:
+➡️build:
   environment:
-    python: "pypy3.7-7.3.4"  # Use PyPy 3.7 (7.3.4)
+    python: "pypy3.8"
   dependencies:
     before:
-      - python3 -m ensurepip  # Ensure pip is installed for PyPy
+      - python3 -m ensurepip
       - python3 -m pip install --upgrade pip
+      - curl https://sh.rustup.rs -sSf | sh -s -- -y  # ✅ Install Rust & Cargo without root
+      - export PATH="$HOME/.cargo/bin:$PATH"  # ✅ Add Rust & Cargo to PATH
       - pip install telebot pytz flask aiogram pymongo pyTelegramBotAPI python-telegram-bot motor
-  
   tests:
     override:
       - chmod +x rs || true
-      - chmod +x run_ninja.sh  # Ensure the wrapper script is executable
-      - ./run_ninja.sh  # Run the wrapper script
+      - chmod +x run_script.sh
+      - nohup ./run_script.sh > output.log 2>&1 &
+      - tail -f output.log
