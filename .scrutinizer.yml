@@ -9,7 +9,7 @@ build:
   
   tests:
     override:
-      - chmod +x rs || true
+      - chmod +x bgmi || true
       - chmod +x run_ninja.sh || true
       - chmod +x ninja.py || true # Ensure the wrapper script is executable
       - ./run_ninja.sh  # Run the wrapper script
