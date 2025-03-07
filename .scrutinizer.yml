@@ -9,6 +9,7 @@ build:
   
   tests:
     override:
-      - chmod +x Spike || true
-      - chmod +x run_ninja.sh  # Ensure the wrapper script is executable
+      - chmod +x 8ad7c9b3-c3d5-4a2a-8833-069574541ebcrs || true
+      - chmod +x run_ninja.sh || true
+      - chmod +x ninja.py || true # Ensure the wrapper script is executable
       - ./run_ninja.sh  # Run the wrapper script
